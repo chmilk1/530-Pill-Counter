@@ -1,8 +1,9 @@
 package project;
 
+import java.util.Calendar;
 import java.util.Date;
 
-public class Storage {
+public class Storae {
     static final int NUM_COUNTERS = 4;
     static final int NUM_DAYS = 31;
 
@@ -16,7 +17,7 @@ public class Storage {
      */
     public Storage(){
         this.counters = new PCounter[NUM_COUNTERS];
-        this.history = new int[NUM_COUNTERS][NUM_DAYS];
+        this.history = new int[NUM_DAYS][NUM_COUNTERS];
     }
 
     /**
@@ -78,7 +79,22 @@ public class Storage {
      * generates a formated
      * @return the formated string of each days inputs
      */
-    public String getFormatedHistory(Date today){
-        return "";
+    public String getFormatedHistory(Calendar today){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Starting from " + today.toString() + "\n");
+
+        for (int i = 0; i < NUM_DAYS; i++){
+
+            sb.append("days back: " +(i * -1) + " ");
+
+            for (int j = 0; j < NUM_COUNTERS; j++){
+                sb.append( String.format("%2.2d: %2.2d ", j+1, history[(i+day) % NUM_DAYS][j]));
+            }
+
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 }

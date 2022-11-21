@@ -23,7 +23,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>MinimalExample.java</mainClass>
+                            <mainClass>PillCounter.java</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

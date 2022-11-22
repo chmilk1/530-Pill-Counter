@@ -38,39 +38,39 @@ public class Button {
         isRunning = true;
 
         var ledConfig1 = DigitalOutput.newConfigBuilder(pi4j)
-                .id("led")
+                .id(name + "led1")
                 .name(name + " LED 1")
                 .address(id1)
                 .shutdown(DigitalState.LOW)
                 .initial(DigitalState.LOW)
-                .provider("pigpio-digital-output");
+                .provider("raspberrypi-digital-output");
         led1 = pi4j.create(ledConfig1);
 
         var ledConfig2 = DigitalOutput.newConfigBuilder(pi4j)
-                .id("led")
+                .id(name + "led2")
                 .name(name + " LED 2")
                 .address(id2)
                 .shutdown(DigitalState.LOW)
                 .initial(DigitalState.LOW)
-                .provider("pigpio-digital-output");
+                .provider("raspberrypi-digital-output");
         led2 = pi4j.create(ledConfig2);
 
         var ledConfig3 = DigitalOutput.newConfigBuilder(pi4j)
-                .id("led")
+                .id(name + "led3")
                 .name(name + " LED 3")
                 .address(id3)
                 .shutdown(DigitalState.LOW)
                 .initial(DigitalState.LOW)
-                .provider("pigpio-digital-output");
+                .provider("raspberrypi-digital-output");
         led3 = pi4j.create(ledConfig3);
 
         var buttonConfig = DigitalInput.newConfigBuilder(pi4j)
-                .id("button")
+                .id(name + "button")
                 .name(name)
                 .address(buttonId)
                 .pull(PullResistance.PULL_DOWN)
                 .debounce(3000L)
-                .provider("pigpio-digital-input");
+                .provider("raspberrypi-digital-input");
         var button = pi4j.create(buttonConfig);
         button.addListener(e -> {
             if (e.state() == DigitalState.HIGH) {
@@ -90,6 +90,10 @@ public class Button {
                 }
             }
         });
+
+        turnOn(led1);
+        turnOn(led2);
+        turnOn(led3);
     }
 
     public void checkState() {

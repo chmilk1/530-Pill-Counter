@@ -1,5 +1,3 @@
-package project;
-
 public class PCounter {
     private int pillsCounted; //the num of pills counted today
 

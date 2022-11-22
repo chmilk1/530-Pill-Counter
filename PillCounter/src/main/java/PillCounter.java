@@ -26,6 +26,8 @@
  */
 
 import com.pi4j.Pi4J;
+import com.pi4j.io.gpio.digital.DigitalOutput;
+import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.util.Console;
 
 /**
@@ -110,7 +112,6 @@ public class PillCounter {
             yellowButton.checkState();
             redButton.checkState();
 
-            Thread.sleep(500);
         }
 
         // ------------------------------------------------------------
@@ -126,6 +127,6 @@ public class PillCounter {
 
         // Shutdown Pi4J
         // TODO ?
-        // pi4j.shutdown();
+        pi4j.shutdown();
     }
 }

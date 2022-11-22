@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-
+import fileWriter
 
 def turn_off(led):
     if GPIO.input(led):
@@ -25,7 +25,7 @@ class Button:
         self.didPress = False
         self.holdLength = 0
         self.state = 0
-        self.HOLD_THRESHOLD = 20
+        self.HOLD_THRESHOLD = 16
 
     def setup(self):
         if self.isRunning:
@@ -47,23 +47,25 @@ class Button:
 
         if GPIO.input(self.buttonId):
             if not self.didPress:
-                self.state += 1
                 self.didPress = True
                 self.holdLength = 0
                 print(self.name + " pressed, moving to state: " + str(self.state))
         elif self.didPress:
+            if self.holdLength != -1:
+                self.state += 1
             self.didPress = False
             self.holdLength = 0
             print(self.name + " released")
 
         #  Increment the holdLength if the button is held
-        if self.didPress:
+        if self.didPress and self.holdLength != -1:
             self.holdLength += 1
 
         #  Check if we have been holding longer than the threshold
         if self.holdLength >= self.HOLD_THRESHOLD:
-            #  Reset the hold variables and set state to 0
-            self.holdLength = 0
+            # Write the amount of pills taken
+            fileWriter.save_to_file(self.name, self.state)
+            self.holdLength = -1
             self.state = 0
             print(self.name + " reset by holding")
 

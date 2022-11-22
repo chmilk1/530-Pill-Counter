@@ -25,7 +25,7 @@ class Button:
         self.didPress = False
         self.holdLength = 0
         self.state = 0
-        self.HOLD_THRESHOLD = 10
+        self.HOLD_THRESHOLD = 20
 
     def setup(self):
         if self.isRunning:
@@ -53,6 +53,7 @@ class Button:
                 print(self.name + " pressed, moving to state: " + str(self.state))
         elif self.didPress:
             self.didPress = False
+            self.holdLength = 0
             print(self.name + " released")
 
         #  Increment the holdLength if the button is held
